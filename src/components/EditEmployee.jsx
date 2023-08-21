@@ -1,39 +1,45 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddEmployee = () => {
-    const navigate = useNavigate()
-    const [data, setData] = useState({
-        name:"",
-        email:"",
-        password:"",
-        salary:"",
-        address:"",
-        image:""
-    })
-    const handleInput = (e) => {
-        const { name, value } = e.target;
-        setData({ ...data, [name]: value });
-      };
-    const handleSubmit = (e)=>{
-        e.preventDefault();
+const EditEmployee = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    salary: "",
+    address: ""
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(data);
+    axios
+      .put("http://localhost:8000/update/"+id, data)
+      .then((res) => navigate("/employee"))
+      .catch((err) => console.log(err));
+  };
+  
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/get/" + id)
+      .then((res) =>{
         console.log(data);
-        const formData = new FormData();
-        formData.append("name", data.name);
-        formData.append("email", data.email);
-        formData.append("password", data.password);
-        formData.append("salary", data.salary);
-        formData.append("address", data.address);
-        formData.append("image", data.image);
-        axios.post('http://localhost:8000/create', formData)
-        .then(res=>navigate('/employee'))
-        .catch(err=>console.log(err))
-    }
+        setData({
+          ...data,
+          name: res.data.Result[0].name,
+          email: res.data.Result[0].email,
+          salary: res.data.Result[0].salary,
+          address: res.data.Result[0].address,
+        })}
+      )
+      .catch((err) => console.log(err));
+  },[]);
   return (
     <div className="p-10 pt-2 font-semibold flex justify-center w-100">
       <form className="md:w-96" onSubmit={handleSubmit} method="post">
-        <h3 className="py-2">Add Employee</h3>
+        <h3 className="py-2">Edit Employee</h3>
         <div className="mb-6">
           <label
             for="name"
@@ -45,8 +51,9 @@ const AddEmployee = () => {
             type="name"
             id="name"
             name="name"
+            value={data.name}
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-            onChange={handleInput}
+            onChange={e=>setData({...data, name:e.target.value})}
             required
           />
         </div>
@@ -60,26 +67,11 @@ const AddEmployee = () => {
           <input
             type="email"
             id="email"
+            value={data.email}
             name="email"
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             placeholder="name@email.com"
-            onChange={handleInput}
-            required
-          />
-        </div>
-        <div className="mb-6">
-          <label
-            for="password"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Enter password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            onChange={handleInput}
-            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            onChange={e=>setData({...data, email:e.target.value})}
             required
           />
         </div>
@@ -93,12 +85,12 @@ const AddEmployee = () => {
           <input
             type="text"
             id="salary"
-            name="salary"
-            onChange={handleInput}
+            value={data.salary}
+            onChange={e => setData({...data, salary : e.target.value})}
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             required
           />
-        </div>
+        </div> 
         <div class="mb-6">
           <label
             for="address"
@@ -108,37 +100,23 @@ const AddEmployee = () => {
           </label>
           <input
             type="text"
+            value={data.address}
             id="address"
             name="address"
-            onChange={handleInput}
+            onChange={e=>setData({...data, address:e.target.value})}
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             required
           />
         </div>
-
-        <label
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          for="file_input"
-        >
-          Upload Image
-        </label>
-        <input
-          className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          id="image"
-          name="image"
-          onChange={e=>setData({...data, image:e.target.files[0]})}
-          type="file"
-        />
-
         <button
           type="submit"
-          className="text-white mt-6 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="text-white mt-6 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Register new employee
+          Update employee
         </button>
       </form>
     </div>
   );
 };
 
-export default AddEmployee;
+export default EditEmployee;

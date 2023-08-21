@@ -8,6 +8,7 @@ import Profile from "./components/Profile";
 import Home from "./components/Home";
 import "./index.css";
 import AddEmployee from "./components/AddEmployee";
+import EditEmployee from "./components/EditEmployee";
 const App = () => {
   return (
     <BrowserRouter>
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/employee" element={<Employee/>}></Route>
           <Route path="/profile" element={<Profile/>}></Route>
           <Route path="/create" element={<AddEmployee/>}></Route>
+          <Route path="/editemployee/:id" element={<EditEmployee/>}></Route>
         </Route>
         <Route path="/login" element={<LoginPage />}></Route>
       </Routes>
