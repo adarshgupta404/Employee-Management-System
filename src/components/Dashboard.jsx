@@ -22,8 +22,8 @@ const Dashboard = () => {
   }
 
   const [user, setuser] = useState([{}])
-  useEffect(() => {
-    axios.get(`${baseUrl}/getuser`)
+  useEffect(async () => {
+    await axios.get(`${baseUrl}/getuser`)
     .then((res) => {
       if (res.data.Status === "Success") {
         setuser(res.data.Result);
@@ -34,7 +34,7 @@ const Dashboard = () => {
     })
     .catch((err) => console.log(err));
 
-    axios.get(`${baseUrl}/dashboard`, { withCredentials: true })
+    await axios.get(`${baseUrl}/dashboard`, { withCredentials: true })
     .then(res=>{
       if(res.data.Status==="Success"){
         // console.log(res.data.Status+"this")
