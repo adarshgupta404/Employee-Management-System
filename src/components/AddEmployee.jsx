@@ -33,7 +33,7 @@ const AddEmployee = () => {
     }
   return (
     <div className="p-10 pt-2 font-semibold flex justify-center w-100">
-      <form className="md:w-96" onSubmit={handleSubmit}>
+      <form className="md:w-96" onSubmit={handleSubmit} method="post">
         <h3 className="py-2">Add Employee</h3>
         <div className="mb-6">
           <label
