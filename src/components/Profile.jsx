@@ -16,11 +16,11 @@ const Profile = () => {
         <div className="flex justify-end h-8 pt-4">
         </div>
         <div className="flex flex-col items-center pb-10">
-          <img
+          {data[0].image ? <img
             className="w-24 h-24 mb-3 rounded-full shadow-lg"
             src={`${baseUrl}/images/${data[0].image}`}
             alt="admin"
-          />
+          />:<></>}
           <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
             {data[0].name}
           </h5>
