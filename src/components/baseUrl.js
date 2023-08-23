@@ -1,3 +1,3 @@
 // apiConfig.js
-const baseUrl = "https://employee-management-system-bkend.vercel.app";
+const baseUrl = "http://localhost:8000";
 export default baseUrl;
