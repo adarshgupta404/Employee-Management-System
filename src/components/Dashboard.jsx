@@ -1,19 +1,50 @@
 import React from "react";
-import "flowbite";
-import { Flowbite } from "flowbite-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, redirect , useNavigate} from "react-router-dom";
+import axios from "axios";
+import { initFlowbite } from "flowbite";
+import baseUrl from "./baseUrl";
 
 const Dashboard = () => {
   const [isChecked, setIsChecked] = useState(true);
-
+  const navigate = useNavigate();
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
+  const handleLogut = ()=>{
+    axios.get(`${baseUrl}/logout`)
+    .then(res=>{
+      navigate('/login')
+    })
+    .catch(err=>console.log(err));
+  }
 
+  const [user, setuser] = useState([{}])
   useEffect(() => {
+    axios.get(`${baseUrl}/getuser`)
+    .then((res) => {
+      if (res.data.Status === "Success") {
+        setuser(res.data.Result);
+        // console.log(res.data.Result);
+      } else {
+        alert("Error");
+      }
+    })
+    .catch((err) => console.log(err));
+
+    axios.get(`${baseUrl}/dashboard`, { withCredentials: true })
+    .then(res=>{
+      if(res.data.Status==="Success"){
+        // console.log(res.data.Status+"this")
+      }else{
+        // console.log(res.data.Status)
+        navigate('/login');
+      }
+    })
+    
+    initFlowbite();
     document.body.classList.toggle("dark", isChecked);
   }, [isChecked]);
   return (
@@ -38,8 +69,8 @@ const Dashboard = () => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    clip-rule="evenodd"
-                    fill-rule="evenodd"
+                    clipRule="evenodd"
+                    fillRule="evenodd"
                     d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
                   ></path>
                 </svg>
@@ -47,16 +78,17 @@ const Dashboard = () => {
               <Link href="https://flowbite.com" className="flex ml-2 md:mr-24">
                 <img
                   src="https://flowbite.com/docs/images/logo.svg"
-                  class="h-8 mr-3"
+                  className="h-8 mr-3"
                   alt="FlowBite Logo"
                 />
-                <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-                  Flowbite
-                </span>
+                <div className="hidden md:block self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
+                  Employee Management System
+                </div>
+              
               </Link>
             </div>
 
-            <div clasNclassNames="flex items-center">
+            <div className="flex items-center">
               <div className="flex items-center ml-3">
                 <label className="themeSwitcherTwo relative inline-flex cursor-pointer select-none items-center">
                   <input
@@ -88,7 +120,7 @@ const Dashboard = () => {
                   >
                     <span className="sr-only">Open user menu</span>
                     <img
-                      class="w-8 h-8 rounded-full"
+                      className="w-8 h-8 rounded-full"
                       src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
                       alt="user photo"
                     />
@@ -104,51 +136,51 @@ const Dashboard = () => {
                       className="text-sm text-gray-900 dark:text-white"
                       role="none"
                     >
-                      Neil Sims
+                      {user[0].name}
                     </p>
                     <p
                       className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
                       role="none"
                     >
-                      neil.sims@flowbite.com
+                      {user[0].email}
                     </p>
                   </div>
                   <ul className="py-1" role="none">
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        to={'/'}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                         role="menuitem"
                       >
                         Dashboard
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        to={'/employee'}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                         role="menuitem"
                       >
-                        Settings
-                      </a>
+                        Employees
+                      </Link>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <Link
+                        to={'/profile'}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                         role="menuitem"
                       >
-                        Earnings
-                      </a>
+                        Profile
+                      </Link>
                     </li>
-                    <li>
-                      <a
-                        href="#"
+                    <li onClick={handleLogut}>
+                      <Link
+                        to={'/signout'}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                         role="menuitem"
                       >
                         Sign out
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -213,9 +245,8 @@ const Dashboard = () => {
               </Link>
             </li>
 
-            <li>
+            <li onClick={handleLogut}>
               <Link
-                href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <svg
@@ -227,9 +258,9 @@ const Dashboard = () => {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"
                   />
                 </svg>
@@ -243,9 +274,9 @@ const Dashboard = () => {
       <div className="p-4 sm:ml-72">
         <div className="rounded-lg dark:border-gray-700 mt-14">
           <div className="h-screen mb-4 rounded bg-gray-50 dark:bg-gray-800">
-            <p className="text-2xl text-gray-400 dark:text-gray-500">
+            <div className="text-2xl text-gray-400 dark:text-gray-500">
               <Outlet />
-            </p>
+            </div>
           </div>
         </div>
       </div>

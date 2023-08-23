@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../index.css";
 import { useNavigate } from "react-router-dom";
+import baseUrl from "./baseUrl";
 const LoginPage = () => {
   const [info, setInfo] = useState({
     email: "",
@@ -10,11 +11,13 @@ const LoginPage = () => {
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  axios.defaults.withCredentials = true;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(info);
+    // console.log(info);
     axios
-      .post("http://localhost:8000/login", info)
+      .post(`${baseUrl}/login`, info)
       .then((res) => {
         if (res.data.Status === "Success") {
           console.log(res.data.Status);
@@ -28,7 +31,7 @@ const LoginPage = () => {
   return (
     <div className="main">
       <div className="flex justify-center items-center w-screen h-screen">
-        <div className="w-3/4 md:w-96 md:96 h-2/3 md:h-120 p-10 opacity-60 absolute rounded-md bg-gradient-to-r from-violet-300 to-fuchsia-200"></div>
+        <div className="w-3/4 md:w-96 md:96 h-2/3 md:h-120 p-10 opacity-60 absolute rounded-md bg-gradient-to-b from-blue-400 to-orange-100"></div>
         <div className="loginform w-3/4 md:w-96 h-2/3 md:h-120 p-10 border-2 border-white rounded-md backdrop-blur-sm z-0">
           <div className="error font-bold text-red-600 duration-10000">
             {error && error}
@@ -41,7 +44,7 @@ const LoginPage = () => {
               <input
                 type="email"
                 name="email"
-                className="w-full p-2 ml-0 mb-6 m-2 rounded border-2 bg-gradient-to-r from-cyan-100 to-blue-200 border-slate-800"
+                className="font-semibold w-full p-2 ml-0 mb-6 m-2 rounded border-2 bg-gradient-to-r from-cyan-100 to-blue-200 border-slate-800"
                 placeholder="Enter Email"
                 onChange={(e) => {
                   setInfo({ ...info, email: e.target.value });
@@ -54,7 +57,7 @@ const LoginPage = () => {
               <input
                 type="password"
                 name="password"
-                className="w-full ml-0 m-2 p-2 mb-6 rounded border-2 bg-gradient-to-r from-cyan-100 to-blue-200 border-slate-800"
+                className="font-semibold w-full ml-0 m-2 p-2 mb-6 rounded border-2 bg-gradient-to-r from-cyan-100 to-blue-200 border-slate-800"
                 placeholder="Enter password"
                 onChange={(e) => {
                   setInfo({ ...info, password: e.target.value });

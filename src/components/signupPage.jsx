@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import baseUrl from "./baseUrl";
 const SignupPage = () => {
   const [info, setInfo] = useState({
     email: "",
@@ -12,7 +13,7 @@ const SignupPage = () => {
     e.preventDefault();
     console.log(info);
     axios
-      .post("http://localhost:8000/login", info)
+      .post(`${baseUrl}/login`, info)
       .then((res) => {
         if (res.data.Status === "Success") {
           console.log(res.data.Status);

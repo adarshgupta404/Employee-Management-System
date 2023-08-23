@@ -1,11 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import baseUrl from "./baseUrl";
 
 const AddEmployee = () => {
+    const navigate = useNavigate()
     const [data, setData] = useState({
         name:"",
         email:"",
         password:"",
+        salary:"",
         address:"",
         image:""
     })
@@ -20,16 +24,17 @@ const AddEmployee = () => {
         formData.append("name", data.name);
         formData.append("email", data.email);
         formData.append("password", data.password);
+        formData.append("salary", data.salary);
         formData.append("address", data.address);
         formData.append("image", data.image);
-        axios.post('http://localhost:8000/create', formData)
-        .then(res=>console.log(res))
+        axios.post(`${baseUrl}/create`, formData)
+        .then(res=>navigate('/employee'))
         .catch(err=>console.log(err))
     }
   return (
-    <div className="p-10 flex justify-center w-100">
+    <div className="p-10 pt-2 font-semibold flex justify-center w-100">
       <form className="md:w-96" onSubmit={handleSubmit} method="post">
-        <h3 className="py-6">Add Employee</h3>
+        <h3 className="py-2">Add Employee</h3>
         <div className="mb-6">
           <label
             for="name"
@@ -74,6 +79,22 @@ const AddEmployee = () => {
             type="password"
             id="password"
             name="password"
+            onChange={handleInput}
+            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            for="salary"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Salary
+          </label>
+          <input
+            type="text"
+            id="salary"
+            name="salary"
             onChange={handleInput}
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             required
