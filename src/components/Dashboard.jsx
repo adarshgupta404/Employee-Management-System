@@ -41,6 +41,7 @@ const Dashboard = () => {
     .then(res=>{
       if(res.data.Status==="Success"){
         // console.log(res.data.Status+"this")
+        navigate('/')
       }else{
         // console.log(res.data.Status)
         handleLogut();
