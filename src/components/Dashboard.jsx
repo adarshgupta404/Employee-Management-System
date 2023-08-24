@@ -29,6 +29,7 @@ const Dashboard = () => {
         setuser(res.data.Result);
         // console.log(res.data.Result);
       } else {
+        handleLogut();
         alert("Error");
       }
     })
