@@ -26,7 +26,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Suspense fallback={<div className="flex h-full justify-center items-center"><LoadingScreen/></div>}><Dashboard /></Suspense>}>
           <Route path="" element={<Home/>}></Route>
-          <Route path="/employee" element={<Suspense fallback={<div>Please Wait...</div>}><Employee/></Suspense>}></Route>
+          <Route path="/employee" element={<Suspense fallback={<LoadingScreen/>}><Employee/></Suspense>}></Route>
           <Route path="/profile" element={<Suspense fallback={<LoadingProfile/>}><Profile/></Suspense>}></Route>
           <Route path="/create" element={<Suspense fallback={<LoadingScreen/>}><AddEmployee/></Suspense>}></Route>
           <Route path="/editemployee/:id" element={<Suspense fallback={<LoadingScreen/>}><EditEmployee/></Suspense>}></Route>
