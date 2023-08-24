@@ -77,7 +77,7 @@ const Employee = () => {
                     >
                       <img
                         className="w-10 h-10 rounded-full"
-                        src={`${baseUrl}/images/${emp.image}`}
+                        src={emp.image}
                         alt="image"
                       />
                       <div className="pl-3">
