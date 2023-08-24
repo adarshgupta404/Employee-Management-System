@@ -26,9 +26,6 @@ const Dashboard = () => {
   useEffect(() => {
     axios.get(`${baseUrl}/getuser`)
     .then((res) => {
-      setTimeout(() => {
-        console.log("Delayed message after 1000ms");
-      }, 1000);
       if (res.data.Status === "Success") {
         setuser(res.data.Result);
         // console.log(res.data.Result);
