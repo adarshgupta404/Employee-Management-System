@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import baseUrl from "./baseUrl";
+// import LoadingProfile from "./LoadingProfile";
 const Profile = () => {
   const [data, setData] = useState([{}]);
   useEffect(() => {
     axios
       .get(`${baseUrl}/adminprofile`)
-      .then((res) => {setData(res.data.Result)})
+      .then((res) => {
+        setData(res.data.Result);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -27,7 +30,7 @@ const Profile = () => {
           <span className="text-sm text-gray-500 dark:text-gray-400">
             Admin
           </span>
-          <div className="flex mt-4 space-x-3 md:mt-6">
+          <div className="flex mt-2 md:mt-6">
             <div className="email">{data[0].email}</div>
           </div>
         </div>
