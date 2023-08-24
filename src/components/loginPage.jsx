@@ -67,6 +67,7 @@ const LoginPage = () => {
             <button
               className="block mt-2 bg-gradient-to-r from-green-800 to-green-500 hover:from-green-500 hover:to-green-800 duration-500 ease-in-out rounded w-full h-10 text-white"
               type="submit"
+              onClick={handleSubmit}
             >
               Log in
             </button>
