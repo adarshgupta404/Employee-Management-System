@@ -40,6 +40,7 @@ const Dashboard = () => {
         // console.log(res.data.Status+"this")
       }else{
         // console.log(res.data.Status)
+        handleLogut();
         navigate('/login');
       }
     })
