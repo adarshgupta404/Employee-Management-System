@@ -16,6 +16,7 @@ const Dashboard = () => {
   const handleLogut = ()=>{
     axios.get(`${baseUrl}/logout`)
     .then(res=>{
+      console.log("logged out")
       navigate('/login')
     })
     .catch(err=>console.log(err));

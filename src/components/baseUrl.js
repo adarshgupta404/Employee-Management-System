@@ -1,3 +1,3 @@
 // apiConfig.js
-const baseUrl = "https://employee-management-system-bkend.vercel.app";
+const baseUrl = "https://ems-backend-eeqw.onrender.com/";
 export default baseUrl;
