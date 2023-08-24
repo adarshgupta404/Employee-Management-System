@@ -17,20 +17,21 @@ const AddEmployee = lazy(()=>import('./components/AddEmployee'))
 const EditEmployee = lazy(()=>import('./components/EditEmployee'))
 const LoginPage = lazy(()=>import('./components/loginPage'))
 import LoadingProfile from "./components/LoadingProfile";
+import LoadingScreen from "./components/LoadingScreen";
 // const SignupPage = lazy(()=>import('./components/signupPage'))
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Suspense fallback={<div className="w-screen h-screen flex justify-center items-center"><div>Please Wait...</div></div>}><Dashboard /></Suspense>}>
+        <Route path="/" element={<Suspense fallback={<div className="flex h-full justify-center items-center"><LoadingScreen/></div>}><Dashboard /></Suspense>}>
           <Route path="" element={<Home/>}></Route>
-          <Route path="/employee" element={<Suspense fallback={<div className="w-screen h-screen flex justify-center items-center"><div>Please Wait...</div></div>}><Employee/></Suspense>}></Route>
-          <Route path="/profile" element={<Suspense fallback={<LoadingProfile/>}><Profile/>\</Suspense>}></Route>
-          <Route path="/create" element={<Suspense fallback={<div className="w-screen h-screen flex justify-center items-center"><div>Please Wait...</div></div>}><AddEmployee/></Suspense>}></Route>
-          <Route path="/editemployee/:id" element={<Suspense fallback={<div className="w-screen h-screen flex justify-center items-center"><div>Please Wait...</div></div>}><EditEmployee/></Suspense>}></Route>
+          <Route path="/employee" element={<Suspense fallback={<div>Please Wait...</div>}><Employee/></Suspense>}></Route>
+          <Route path="/profile" element={<Suspense fallback={<LoadingProfile/>}><Profile/></Suspense>}></Route>
+          <Route path="/create" element={<Suspense fallback={<LoadingScreen/>}><AddEmployee/></Suspense>}></Route>
+          <Route path="/editemployee/:id" element={<Suspense fallback={<LoadingScreen/>}><EditEmployee/></Suspense>}></Route>
         </Route>
-        <Route path="/login" element={<Suspense fallback={<div>Please Wait...</div>}><LoginPage/></Suspense>}></Route>
+        <Route path="/login" element={<Suspense fallback={<LoadingScreen/>}><LoginPage/></Suspense>}></Route>
       </Routes>
     </BrowserRouter>
   );
