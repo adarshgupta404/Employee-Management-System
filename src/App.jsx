@@ -14,6 +14,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <React.Suspense>
         <Route path="/" element={<LazyDashboard />}>
           <Route path="" element={<Home/>}></Route>
           <Route path="/employee" element={<Employee/>}></Route>
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/create" element={<AddEmployee/>}></Route>
           <Route path="/editemployee/:id" element={<EditEmployee/>}></Route>
         </Route>
+        </React.Suspense>
         <Route path="/login" element={<LoginPage />}></Route>
       </Routes>
     </BrowserRouter>
