@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import { Link, Outlet, redirect , useNavigate} from "react-router-dom";
+import { Link, Outlet, useNavigate} from "react-router-dom";
 import axios from "axios";
 import { initFlowbite } from "flowbite";
 import baseUrl from "./baseUrl";
@@ -40,7 +40,7 @@ const Dashboard = () => {
         // console.log(res.data.Status+"this")
       }else{
         // console.log(res.data.Status)
-        navigate('/login');
+        handleLogut();
       }
     })
     
