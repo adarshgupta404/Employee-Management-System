@@ -24,14 +24,14 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Suspense fallback={<div className="flex h-full justify-center items-center"><LoadingScreen/></div>}><Dashboard /></Suspense>}>
+        <Route path="/" element={<Suspense fallback={<LoadingScreen screen="h-screen" />}><Dashboard /></Suspense>}>
           <Route path="" element={<Home/>}></Route>
-          <Route path="/employee" element={<Suspense fallback={<LoadingScreen/>}><Employee/></Suspense>}></Route>
+          <Route path="/employee" element={<Suspense fallback={<LoadingScreen screen="h-96 mt-6"/>}><Employee/></Suspense>}></Route>
           <Route path="/profile" element={<Suspense fallback={<LoadingProfile/>}><Profile/></Suspense>}></Route>
-          <Route path="/create" element={<Suspense fallback={<LoadingScreen/>}><AddEmployee/></Suspense>}></Route>
-          <Route path="/editemployee/:id" element={<Suspense fallback={<LoadingScreen/>}><EditEmployee/></Suspense>}></Route>
+          <Route path="/create" element={<Suspense fallback={<LoadingScreen screen="h-96 mt-6"/>}><AddEmployee/></Suspense>}></Route>
+          <Route path="/editemployee/:id" element={<Suspense fallback={<LoadingScreen screen="h-96 mt-6"/>}><EditEmployee/></Suspense>}></Route>
         </Route>
-        <Route path="/login" element={<Suspense fallback={<div className="flex h-full justify-center items-center"><LoadingScreen/></div>}><LoginPage/></Suspense>}></Route>
+        <Route path="/login" element={<Suspense fallback={<LoadingScreen screen="h-screen"/>}><LoginPage/></Suspense>}></Route>
       </Routes>
     </BrowserRouter>
   );

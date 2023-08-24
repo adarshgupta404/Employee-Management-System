@@ -1,8 +1,8 @@
 import React from "react";
 
-const LoadingScreen = () => {
+const LoadingScreen = (prop) => {
   return (
-    <div className="h-96 flex items-center justify-center">
+    <div className={`${prop.screen} flex items-center justify-center`}>
       <button
         disabled
         type="button"
