@@ -31,7 +31,7 @@ const App = () => {
           <Route path="/create" element={<Suspense fallback={<LoadingScreen/>}><AddEmployee/></Suspense>}></Route>
           <Route path="/editemployee/:id" element={<Suspense fallback={<LoadingScreen/>}><EditEmployee/></Suspense>}></Route>
         </Route>
-        <Route path="/login" element={<Suspense fallback={<LoadingScreen/>}><LoginPage/></Suspense>}></Route>
+        <Route path="/login" element={<Suspense fallback={<div className="flex h-full justify-center items-center"><LoadingScreen/></div>}><LoginPage/></Suspense>}></Route>
       </Routes>
     </BrowserRouter>
   );

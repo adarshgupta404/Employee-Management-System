@@ -16,7 +16,6 @@ const Dashboard = () => {
   const handleLogut = ()=>{
     axios.get(`${baseUrl}/logout`)
     .then(res=>{
-      console.log("logged out")
       navigate('/login')
     })
     .catch(err=>console.log(err));
@@ -24,27 +23,22 @@ const Dashboard = () => {
 
   const [user, setuser] = useState([{}])
   useEffect(() => {
+    axios.get(`${baseUrl}/adminprofile`)
+      .then((res) => {
+        setuser(res.data.Result);
+      })
+      .catch((err) => console.log(err));
+
     axios.get(`${baseUrl}/dashboard`, { withCredentials: true })
     .then(res=>{
       if(res.data.Status==="Success"){
         // console.log(res.data.Status+"this")
-        navigate('/')
       }else{
         // console.log(res.data.Status)
-        handleLogut();
         navigate('/login');
       }
     })
-    axios.get(`${baseUrl}/getuser`)
-    .then((res) => {
-      if (res.data.Status === "Success") {
-        setuser(res.data.Result);
-        // console.log(res.data.Result);
-      } else {
-        alert("Error");
-      }
-    })
-    .catch((err) => console.log(err));
+    
     initFlowbite();
     document.body.classList.toggle("dark", isChecked);
   }, [isChecked]);
@@ -121,10 +115,10 @@ const Dashboard = () => {
                   >
                     <span className="sr-only">Open user menu</span>
                     <img
-                      className="w-8 h-8 rounded-full"
-                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                      alt="user photo"
-                    />
+              className="w-8 h-8 rounded-full"
+              src={`${baseUrl}/images/${user[0].image}`}
+              alt="admin"
+            />
                   </button>
                 </div>
 
