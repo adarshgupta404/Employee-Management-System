@@ -35,16 +35,16 @@ const Dashboard = () => {
         navigate('/login');
       }
     })
-    // axios.get(`${baseUrl}/getuser`)
-    // .then((res) => {
-    //   if (res.data.Status === "Success") {
-    //     setuser(res.data.Result);
-    //     // console.log(res.data.Result);
-    //   } else {
-    //     alert("Error");
-    //   }
-    // })
-    // .catch((err) => console.log(err));
+    axios.get(`${baseUrl}/getuser`)
+    .then((res) => {
+      if (res.data.Status === "Success") {
+        setuser(res.data.Result);
+        // console.log(res.data.Result);
+      } else {
+        alert("Error");
+      }
+    })
+    .catch((err) => console.log(err));
     initFlowbite();
     document.body.classList.toggle("dark", isChecked);
   }, [isChecked]);
