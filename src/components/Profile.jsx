@@ -64,7 +64,7 @@ const Profile = () => {
               {data[0].email ? (
                 <>{data[0].email}</>
               ) : (
-                <div class="px-3 py-3 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">
+                <div class="px-3 py-2 mb-1 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">
                   loading...
                 </div>
               )}
