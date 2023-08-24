@@ -48,13 +48,27 @@ const Profile = () => {
             </div>
           )}
           <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-            {data[0].name}
+            {data[0].name ? (
+              <>{data[0].name}</>
+            ) : (
+              <div class="px-3 py-2 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">
+                loading...
+              </div>
+            )}
           </h5>
           <span className="text-sm text-gray-500 dark:text-gray-400">
             Admin
           </span>
           <div className="flex mt-2 md:mt-6">
-            <div className="email">{data[0].email}</div>
+            <div className="email">
+              {data[0].email ? (
+                <>{data[0].email}</>
+              ) : (
+                <div class="px-3 py-3 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">
+                  loading...
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
