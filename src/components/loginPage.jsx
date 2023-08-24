@@ -15,7 +15,7 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(info);
+    console.log(info);
     axios
       .post(`${baseUrl}/login`, info)
       .then((res) => {
