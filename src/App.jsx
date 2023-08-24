@@ -24,10 +24,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Suspense fallback={<div className="w-screen h-screen flex justify-center items-center"><div>Please Wait...</div></div>}><Dashboard /></Suspense>}>
           <Route path="" element={<Home/>}></Route>
-          <Route path="/employee" element={<Suspense fallback={<div>Please Wait...</div>}><Employee/></Suspense>}></Route>
-          <Route path="/profile" element={<Suspense fallback={<div>Please Wait...</div>}><Profile/></Suspense>}></Route>
-          <Route path="/create" element={<Suspense fallback={<div>Please Wait...</div>}><AddEmployee/></Suspense>}></Route>
-          <Route path="/editemployee/:id" element={<Suspense fallback={<div>Please Wait...</div>}><EditEmployee/></Suspense>}></Route>
+          <Suspense fallback={<div className="w-screen h-screen flex justify-center items-center"><div>Please Wait...</div></div>}>
+          <Route path="/employee" element={<Employee/>}></Route>
+          <Route path="/profile" element={<Profile/>}></Route>
+          <Route path="/create" element={<AddEmployee/>}></Route>
+          <Route path="/editemployee/:id" element={<EditEmployee/>}></Route>
+          </Suspense>
         </Route>
         <Route path="/login" element={<Suspense fallback={<div>Please Wait...</div>}><LoginPage/></Suspense>}></Route>
       </Routes>
